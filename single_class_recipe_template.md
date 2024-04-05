@@ -26,32 +26,33 @@ _Include the initializer, public properties, and public methods with all paramet
 ```python
 # EXAMPLE
 
-class Reminder:
-    # User-facing properties:
-    #   name: string
+class Toybox:
 
     def __init__(self, name):
+        self.name = name
+        self.storage = []
         # Parameters:
         #   name: string
         # Side effects:
         #   Sets the name property of the self object
         pass # No code here yet
 
-    def remind_me_to(self, task):
+    def add_toy(self, toy):
         # Parameters:
-        #   task: string representing a single task
+        #   toy: string representing a toy
         # Returns:
         #   Nothing
         # Side-effects
-        #   Saves the task to the self object
+        #   Saves the toy to the self objects storage variable
         pass # No code here yet
 
-    def remind(self):
+    def see_toybox_contents(self):
         # Returns:
-        #   A string reminding the user to do the task
+        #   A list of toys
         # Side-effects:
-        #   Throws an exception if no task is set
+        #   No side-effects
         pass # No code here yet
+
 ```
 
 ## 3. Create Examples as Tests
@@ -62,27 +63,43 @@ _Make a list of examples of how the class will behave in different situations._
 # EXAMPLE
 
 """
-Given a name and a task
-#remind reminds the user to do the task
+Given we want to store toys
+#we can instantiate a new Toybox
 """
-reminder = Reminder("Kay")
-reminder.remind_me_to("Walk the dog")
-reminder.remind() # => "Walk the dog, Kay!"
+toybox = Toybox('Childrens room')
+actual = toybox.name
+
+expected = 'Childrens room'
+
+assert actual == expected
 
 """
-Given a name and no task
-#remind raises an exception
+Given we have a Toybox
+we can add toys into it
 """
-reminder = Reminder("Kay")
-reminder.remind() # raises an error with the message "No task set."
+toybox = Toybox('Childrens room')
+toybox.add_toy('car')
+
+actual = toybox.storage
+expected = ['car']
+
+assert actual == expected
 
 """
-Given a name and an empty task
-#remind still reminds the user to do the task, even though it looks odd
+Given we have a toybox
+we can check the contents of it
 """
-reminder = Reminder("Kay")
-reminder.remind_me_to("")
-reminder.remind() # => ", Kay!"
+toybox = Toybox('Childrens room')
+toybox.add_toy('car')
+toybox.add_toy('G.I Joe')
+toybox.add_toy('wrestler')
+toybox.add_toy('Barbie')
+
+actual = toybox.see_toybox_contents()
+expected = ['car', 'G.I Joe', 'wrestler', 'Barbie']
+
+assert actual == expected
+
 ```
 
 _Encode each example as a test. You can add to the above list as you go._
